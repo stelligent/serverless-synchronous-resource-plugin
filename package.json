@@ -1,0 +1,37 @@
+{
+  "name": "serverless-custom-resource-plugin",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=4.0"
+  },
+  "description": "Serverless plugin for deploying custom CFN stacks",
+  "author": "me",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/"
+  },
+  "keywords": [
+    "serverless framework plugin",
+    "serverless applications",
+    "serverless plugins",
+    "api gateway",
+    "lambda",
+    "aws",
+    "aws lambda",
+    "amazon",
+    "amazon web services",
+    "serverless.com"
+  ],
+  "main": "index.js",
+  "bin": {},
+  "scripts": {},
+  "devDependencies": {},
+  "dependencies": {
+    "bluebird": "^3.0.6",
+    "aws-sdk": "^2.2.3",
+    "cfn-config": "^0.8.5",
+    "cfn-stack-event-stream": "0.0.4",
+    "colors": "^1.1.2"
+  }
+}
