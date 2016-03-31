@@ -1,10 +1,10 @@
 {
-  "name": "serverless-custom-resource-plugin",
+  "name": "serverless-synchronous-resource-plugin",
   "version": "0.1.0",
   "engines": {
     "node": ">=4.0"
   },
-  "description": "Serverless plugin for deploying custom CFN stacks",
+  "description": "Serverless plugin for synchronously deploying CFN stacks with monitoring of stack events.",
   "author": "me",
   "license": "MIT",
   "repository": {
