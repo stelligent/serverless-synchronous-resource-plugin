@@ -1,3 +1,3 @@
-# serverless-custom-resource-plugin
+# serverless-synchronous-resource-plugin
 
-Serverless plugin for deploying custom CFN stacks
+Serverless plugin for synchronously deploying CFN stacks with monitoring stack events.
