@@ -1,37 +1,24 @@
 'use strict';
 
 const
-  BbPromise = require('bluebird'), // Serverless uses Bluebird Promises and we recommend you do to because they provide more than your average Promise :)
+  BbPromise = require('bluebird'),
   CFNRunner = require('./lib/cfnRunner');
 
 module.exports = function(S) { // Always pass in the ServerlessPlugin Class
 
-  class CustomResource extends S.classes.Plugin {
-
-    /**
-     * Constructor
-     * - Keep this and don't touch it unless you know what you're doing.
-     */
+  class SynchronousResource extends S.classes.Plugin {
 
     constructor() {
       super();
       this.name = 'customResource'; // Define your plugin's name
     }
 
-    /**
-     * Register Actions
-     * - If you would like to register a Custom Action or overwrite a Core Serverless Action, add this function.
-     * - If you would like your Action to be used programatically, include a "handler" which can be called in code.
-     * - If you would like your Action to be used via the CLI, include a "description", "context", "action" and any options you would like to offer.
-     * - Your custom Action can be called programatically and via CLI, as in the example provided below
-     */
-
     registerActions() {
 
-      S.addAction(this._deployCustomResources.bind(this), {
-        handler:       'deployCustomResources',
+      S.addAction(this._deployResources.bind(this), {
+        handler:       'deployResources',
         description:   'A custom action from a custom plugin',
-        context:       'customResources',
+        context:       'synchronousResources',
         contextAction: 'deploy',
         options:       [
           {
@@ -53,10 +40,10 @@ module.exports = function(S) { // Always pass in the ServerlessPlugin Class
         parameters: []
       });
 
-      S.addAction(this._removeCustomResources.bind(this), {
-        handler:       'removeCustomResources',
+      S.addAction(this._removeResources.bind(this), {
+        handler:       'removeResources',
         description:   'A custom action from a custom plugin',
-        context:       'customResources',
+        context:       'synchronousResources',
         contextAction: 'remove',
         options:       [
           {
@@ -82,7 +69,7 @@ module.exports = function(S) { // Always pass in the ServerlessPlugin Class
     }
 
 
-    _deployCustomResources(evt) {
+    _deployResources(evt) {
 
       return new BbPromise(function (resolve, reject) {
 
@@ -100,7 +87,7 @@ module.exports = function(S) { // Always pass in the ServerlessPlugin Class
       });
     }
 
-    _removeCustomResources(evt) {
+    _removeResources(evt) {
 
       return new BbPromise(function (resolve, reject) {
 
@@ -122,6 +109,6 @@ module.exports = function(S) { // Always pass in the ServerlessPlugin Class
   }
 
   // Export Plugin Class
-  return CustomResource;
+  return SynchronousResource;
 
 };
