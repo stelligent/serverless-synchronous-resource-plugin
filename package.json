@@ -5,7 +5,7 @@
     "node": ">=4.0"
   },
   "description": "Serverless plugin for synchronously deploying CFN stacks with monitoring of stack events.",
-  "author": "me",
+  "author": "Dave Bettinger",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -28,10 +28,11 @@
   "scripts": {},
   "devDependencies": {},
   "dependencies": {
-    "bluebird": "^3.0.6",
     "aws-sdk": "^2.2.3",
+    "bluebird": "^3.0.6",
     "cfn-config": "^0.8.5",
     "cfn-stack-event-stream": "0.0.4",
-    "colors": "^1.1.2"
+    "chalk": "^1.1.3",
+    "cli-spinner": "^0.2.5"
   }
 }
