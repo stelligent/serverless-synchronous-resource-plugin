@@ -2,9 +2,8 @@
 
 const
     BbPromise = require('bluebird'),
-    CFNRunner = require('./lib/cfnRunner'),
-    chalk = require('chalk'),
-    Spinner = require('cli-spinner').Spinner;
+    CFNRunner = require('cfn-runner'),
+    chalk = require('chalk');
 
 
 module.exports = function (S) { // Always pass in the ServerlessPlugin Class
@@ -79,18 +78,13 @@ module.exports = function (S) { // Always pass in the ServerlessPlugin Class
 
             return new BbPromise(function (resolve, reject) {
 
-                var cfnRunner = new CFNRunner(evt.options.region, evt.options.templatePath);
+                var cfnRunner = new CFNRunner(evt.options.region, evt.options.templatePath, 'admin.env');
                 var cb = function (err) {
-                    spinner.stop(true);
                     if (err) {
                         console.log(err);
                         return reject(evt);
                     }
                 };
-
-                var spinner = new Spinner('  ' + chalk.yellow('%s '));
-                spinner.setSpinnerDelay(60);
-                spinner.start();
 
                 cfnRunner.deployStack(cb);
 
@@ -104,19 +98,13 @@ module.exports = function (S) { // Always pass in the ServerlessPlugin Class
             let _this = this;
 
             return new BbPromise(function (resolve, reject) {
-
-                var cfnRunner = new CFNRunner(evt.options.region, evt.options.templatePath);
+                var cfnRunner = new CFNRunner(evt.options.region, evt.options.templatePath, 'admin.env');
                 var cb = function (err) {
-                    spinner.stop(true);
                     if (err) {
                         console.log(err);
                         return reject(evt);
                     }
                 };
-
-                var spinner = new Spinner('  ' + chalk.yellow('%s '));
-                spinner.setSpinnerDelay(60);
-                spinner.start();
 
                 cfnRunner.deleteStack(cb);
 
