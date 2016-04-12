@@ -75,11 +75,11 @@ module.exports = function (S) { // Always pass in the ServerlessPlugin Class
         _deployResources(evt) {
 
             let _this = this,
-            credentials = S.getProvider().getCredentials(evt.options.stage, evt.options.region);
+            config = S.getProvider().getCredentials(evt.options.stage, evt.options.region);
 
             return new BbPromise(function (resolve, reject) {
 
-                var cfnRunner = new CFNRunner(evt.options.templatePath, credentials);
+                var cfnRunner = new CFNRunner(evt.options.templatePath, config);
                 var cb = function (err) {
                     if (err) {
                         console.log(err);
@@ -97,10 +97,10 @@ module.exports = function (S) { // Always pass in the ServerlessPlugin Class
         _removeResources(evt) {
 
             let _this = this,
-            credentials = S.getProvider().getCredentials(evt.options.stage, evt.options.region);
+            config = S.getProvider().getCredentials(evt.options.stage, evt.options.region);
 
             return new BbPromise(function (resolve, reject) {
-                var cfnRunner = new CFNRunner(evt.options.templatePath, credentials);
+                var cfnRunner = new CFNRunner(evt.options.templatePath, config);
                 var cb = function (err) {
                     if (err) {
                         console.log(err);
