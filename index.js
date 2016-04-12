@@ -1,6 +1,7 @@
 'use strict';
 
 const
+    fs = require('fs'),
     BbPromise = require('bluebird'),
     CFNRunner = require('cfn-runner'),
     chalk = require('chalk');
@@ -38,6 +39,11 @@ module.exports = function (S) { // Always pass in the ServerlessPlugin Class
                         option: 'templatePath',
                         shortcut: 't',
                         description: 'CFN stack you want to deploy'
+                    },
+                    {
+                        option: 'configPath',
+                        shortcut: 'c',
+                        description: 'Configs for the stack execution'
                     }
                 ],
                 parameters: []
@@ -63,6 +69,11 @@ module.exports = function (S) { // Always pass in the ServerlessPlugin Class
                         option: 'templatePath',
                         shortcut: 't',
                         description: 'CFN stack you want to delete'
+                    },
+                    {
+                        option: 'configPath',
+                        shortcut: 'c',
+                        description: 'Configs for the stack execution'
                     }
                 ],
                 parameters: []
@@ -74,12 +85,11 @@ module.exports = function (S) { // Always pass in the ServerlessPlugin Class
 
         _deployResources(evt) {
 
-            let _this = this,
-            config = S.getProvider().getCredentials(evt.options.stage, evt.options.region);
+            let _this = this;
 
             return new BbPromise(function (resolve, reject) {
 
-                var cfnRunner = new CFNRunner(evt.options.templatePath, config);
+                var cfnRunner = new CFNRunner(_this._getOptions(evt));
                 var cb = function (err) {
                     if (err) {
                         console.log(err);
@@ -100,7 +110,7 @@ module.exports = function (S) { // Always pass in the ServerlessPlugin Class
             config = S.getProvider().getCredentials(evt.options.stage, evt.options.region);
 
             return new BbPromise(function (resolve, reject) {
-                var cfnRunner = new CFNRunner(evt.options.templatePath, config);
+                var cfnRunner = new CFNRunner(_this._getOptions(evt));
                 var cb = function (err) {
                     if (err) {
                         console.log(err);
@@ -113,6 +123,25 @@ module.exports = function (S) { // Always pass in the ServerlessPlugin Class
                 return resolve(evt);
 
             });
+        }
+
+        _getOptions(evt){
+          let
+          creds = S.getProvider().getCredentials(evt.options.stage, evt.options.region),
+          config = JSON.parse(fs.readFileSync(evt.options.configPath)),
+          options = {
+                  "region": evt.options.region,
+                  "template": evt.options.templatePath,
+                  "name": evt.options.templatePath.slice(
+                    evt.options.templatePath.lastIndexOf("/")+1,
+                    evt.options.templatePath.lastIndexOf(".")),
+                  "force": config.force,
+                  "update": false,
+                  "config": evt.options.configPath,
+                  "defaults": config.defaults,
+                  "creds": creds
+              };
+          return options;
         }
 
 
