@@ -147,6 +147,7 @@ module.exports = function (S) { // Always pass in the ServerlessPlugin Class
                       "defaults": config.defaults,
                       "creds": credentials
                   };
+                  options.defaults.LambdaStage = evt.options.stage;
                   res(options);
             });
 
