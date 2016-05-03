@@ -144,7 +144,7 @@ module.exports = function (S) { // Always pass in the ServerlessPlugin Class
                       "force": config.force,
                       "update": false,
                       "config": evt.options.configPath,
-                      "defaults": config.defaults,
+                      "defaults": config.defaults || {},
                       "creds": credentials
                   };
                   options.defaults.LambdaStage = evt.options.stage;
