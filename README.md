@@ -4,7 +4,7 @@ Serverless plugin for synchronously deploying CFN stacks with monitoring of stac
 
 **Usage**
 
-This plugin provides a new Serverless Actions which can be invoked via the Serverless CLI from a project root directory.
+This plugin provides a new Serverless Action which can be invoked via the Serverless CLI from a project root directory.
 
 ```
 # Create or upate a CFN stack
